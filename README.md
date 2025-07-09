@@ -1,1 +1,3 @@
-# study-supervised-learning
+# Supervised Learning with scikit-learn
+
+- **scikit-learn**: Open-source machine learning library ([https://scikit-learn.org/stable/index.html](https://scikit-learn.org/stable/index.html))
