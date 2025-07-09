@@ -5,25 +5,24 @@ def generateDataset():
     np.random.seed(42)
     num_samples = 3333
 
-    # account_length: Int, min/max, próximo de uma distribuição uniforme ou normal truncada
-    account_length = np.random.randint(1, 244, num_samples) # Min 1, Max 243
+    # account_length: Int, Min 1/Max 243, próximo de uma distribuição uniforme ou normal truncada
+    account_length = np.random.randint(1, 244, num_samples)
 
-    # total_day_charge: Float, aproximar com distribuição normal truncada ou ajuste de range
-    # Para simplificar, usaremos uma normal truncada ou clip para garantir min/max
+    # total_day_charge: Float, aproximar com distribuição normal truncada
     total_day_charge = np.random.normal(loc=30.562, scale=9.259, size=num_samples)
-    total_day_charge = np.clip(total_day_charge, 0.000, 59.640) # Garante min e max
+    total_day_charge = np.clip(total_day_charge, 0.000, 59.640).round(2) # Garante min e max
 
     # total_eve_charge: Float
     total_eve_charge = np.random.normal(loc=17.084, scale=4.311, size=num_samples)
-    total_eve_charge = np.clip(total_eve_charge, 0.000, 30.910)
+    total_eve_charge = np.clip(total_eve_charge, 0.000, 30.910).round(2)
 
     # total_night_charge: Float
     total_night_charge = np.random.normal(loc=9.039, scale=2.276, size=num_samples)
-    total_night_charge = np.clip(total_night_charge, 1.040, 17.770)
+    total_night_charge = np.clip(total_night_charge, 1.040, 17.770).round(2)
 
     # total_intl_charge: Float
     total_intl_charge = np.random.normal(loc=2.765, scale=0.754, size=num_samples)
-    total_intl_charge = np.clip(total_intl_charge, 0.000, 5.400)
+    total_intl_charge = np.clip(total_intl_charge, 0.000, 5.400).round(2)
 
     # customer_service_calls: Int, min/max
     # Usar random.randint e clip para forçar a distribuição de inteiros
@@ -48,14 +47,8 @@ def generateDataset():
     churn_df['customer_service_calls'] = churn_df['customer_service_calls'].astype(int)
     churn_df['churn'] = churn_df['churn'].astype(int)
 
-    # Para `total_day_charge`, `total_eve_charge`, `total_night_charge`, `total_intl_charge` que são float64, numpy.random.normal já os gera como float. Podemos arredondar para um número razoável de casas decimais para simular os dados originais
-    churn_df['total_day_charge'] = churn_df['total_day_charge'].round(3)
-    churn_df['total_eve_charge'] = churn_df['total_eve_charge'].round(3)
-    churn_df['total_night_charge'] = churn_df['total_night_charge'].round(3)
-    churn_df['total_intl_charge'] = churn_df['total_intl_charge'].round(3)
-
-    print(churn_df.head())
-    print(churn_df.info())
-    print(churn_df.describe())
+    # print(churn_df.head())
+    # print(churn_df.info())
+    # print(churn_df.describe())
 
     return churn_df
