@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier 
 from sklearn.model_selection import train_test_split
-from functions import generateClassificationDataset
+from functions import generate_classification_dataset
 
 def KNN_fit_and_predict(df: pd.DataFrame):
     y = df["churn"].values
@@ -50,7 +50,7 @@ def overfit_and_underfit(x_train: list, x_test: list, y_train: list, y_test: lis
     return neighbors, train_accuracies, test_accuracies
 
 if __name__ == "__main__":
-    data = generateClassificationDataset()
+    data = generate_classification_dataset()
     print(data.head())
 
     KNN_fit_and_predict(data)

@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-def generateClassificationDataset():
+def generate_classification_dataset():
     generator = np.random.default_rng(42)
     num_samples = 3333
 
@@ -52,3 +52,35 @@ def generateClassificationDataset():
     # print(churn_df.describe())
 
     return churn_df
+
+def generate_regression_dataset():
+    generator = np.random.default_rng(42) 
+    num_samples = 4546
+
+    # tv
+    tv = generator.normal(loc=54062.912, scale=26104.942, size=num_samples)
+    tv = np.clip(tv, 10000.000, 100000.000).round(2)
+
+    # radio
+    radio = generator.normal(loc=18157.533, scale=9663.260, size=num_samples)
+    radio = np.clip(radio, 0.680, 48871.160).round(2)
+
+    # social_media
+    social_media = generator.normal(loc=3323.473, scale=2211.254, size=num_samples)
+    social_media = np.clip(social_media, 0.030, 13981.660).round(2)
+
+    sales = generator.normal(loc=192413.332, scale=93019.873, size=num_samples)
+    sales = np.clip(sales, 31199.410, 364079.750).round(2)
+
+    sales_df = pd.DataFrame({
+        'tv': tv,
+        'radio': radio,
+        'social_media': social_media,
+        'sales': sales
+    })
+
+    # print(sales_df.head())
+    # print(sales_df.info())
+    # print(sales_df.describe())
+
+    return sales_df
