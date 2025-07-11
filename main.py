@@ -1,6 +1,7 @@
 from functions import generateDataset
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier 
 from sklearn.model_selection import train_test_split
 
@@ -46,10 +47,21 @@ def overfit_and_underfit(x_train: list, x_test: list, y_train: list, y_test: lis
         train_accuracies[neighbor] = knn.score(x_train, y_train)
         test_accuracies[neighbor] = knn.score(x_test, y_test)
     print(neighbors, '\n', train_accuracies, '\n', test_accuracies)
+    return neighbors, train_accuracies, test_accuracies
 
 data = generateDataset()
 print(data.head())
 
 KNN_fit_and_predict(data)
 x_train, x_test, y_train, y_test = train_test_split_and_compute_accuracy(data)
-overfit_and_underfit(x_train, x_test, y_train, y_test)
+neighbors, train_accuracies, test_accuracies = overfit_and_underfit(x_train, x_test, y_train, y_test)
+
+plt.title("KNN: Model Complex Curve")
+# visualize how performance changes as the model becomes less complex
+plt.plot(neighbors, list(train_accuracies.values()), label="Training Accuracy")
+plt.plot(neighbors, list(test_accuracies.values()), label="Testing Accuracy")
+
+plt.legend()
+plt.xlabel("Nb of Neighbors")
+plt.ylabel("Accuracy")
+plt.show()
