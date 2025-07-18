@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.neighbors import KNeighborsClassifier 
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from functions import generate_classification_dataset
 
@@ -34,7 +34,7 @@ def train_test_split_and_compute_accuracy(df: pd.DataFrame):
     print(knn.score(x_test, y_test))
     return x_train, x_test, y_train, y_test
 
-def overfit_and_underfit(x_train: list, x_test: list, y_train: list, y_test: list):
+def overfit_and_underfit(x_train: np.ndarray, x_test: np.ndarray, y_train: np.ndarray, y_test: np.ndarray):
     neighbors = np.arange(1, 13)
     train_accuracies = {}
     test_accuracies = {}
@@ -46,12 +46,11 @@ def overfit_and_underfit(x_train: list, x_test: list, y_train: list, y_test: lis
         # Compute accuracy
         train_accuracies[neighbor] = knn.score(x_train, y_train)
         test_accuracies[neighbor] = knn.score(x_test, y_test)
-    print(neighbors, '\n', train_accuracies, '\n', test_accuracies)
+    # print(neighbors, '\n', train_accuracies, '\n', test_accuracies)
     return neighbors, train_accuracies, test_accuracies
 
 if __name__ == "__main__":
     data = generate_classification_dataset()
-    print(data.head())
 
     KNN_fit_and_predict(data)
     features_train, features_test, labels_train, labels_test = train_test_split_and_compute_accuracy(data)
